@@ -1,0 +1,12 @@
+# order-management-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-management
+spec:
+  selector:
+    app: order-management
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3001

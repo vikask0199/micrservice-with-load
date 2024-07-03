@@ -1,0 +1,12 @@
+# authentication-service-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service
+spec:
+  selector:
+    app: authentication-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3002

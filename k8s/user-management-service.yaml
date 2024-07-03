@@ -1,0 +1,12 @@
+# user-management-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-management
+spec:
+  selector:
+    app: user-management
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
