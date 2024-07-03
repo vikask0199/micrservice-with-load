@@ -1,33 +1,40 @@
-version: '3'
+version: '3.8'
 services:
   user-management:
     build: ./user-management
     ports:
       - "3000:3000"
-    environment:
-      - DATABASE_URL=postgres://user:password@postgresql:5432/userdb
+    depends_on:
+      - postgresql
+
   order-management:
     build: ./order-management
     ports:
       - "3001:3001"
-    environment:
-      - MONGO_URL=mongodb://mongodb:27017/orderdb
+    depends_on:
+      - mongodb
+
   authentication-service:
     build: ./authentication-service
     ports:
       - "3002:3002"
     environment:
       - REDIS_URL=redis://redis:6379
+      - MONGO_URL=mongodb://mongodb:27017/authdb
+
   postgresql:
     image: postgres:latest
     environment:
-      - POSTGRES_DB=userdb
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      POSTGRES_DB: userdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
   mongodb:
     image: mongo:latest
+
   redis:
     image: redis:latest
+
   nginx:
     image: nginx:latest
     volumes:
