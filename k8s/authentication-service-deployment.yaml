@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: authentication-service
 spec:
-  replicas: 3
+  replicas: 5  # Start with a reasonable number based on initial estimates
   selector:
     matchLabels:
       app: authentication-service
@@ -17,6 +17,13 @@ spec:
         image: authentication-service:latest
         ports:
         - containerPort: 3002
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
         env:
         - name: REDIS_URL
           value: "redis://redis:6379"
@@ -34,3 +41,16 @@ spec:
     targetPort: 3002
   selector:
     app: authentication-service
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: authentication-service-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: authentication-service
+  minReplicas: 3  # Minimum number of pods
+  maxReplicas: 10  # Maximum number of pods
+  targetCPUUtilizationPercentage: 50  # Adjust based on observed CPU utilization

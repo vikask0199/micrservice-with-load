@@ -6,6 +6,10 @@ services:
       - "3000:3000"
     depends_on:
       - postgresql
+    environment:
+      - DATABASE_URL=postgres://user:password@postgresql:5432/userdb
+    deploy:
+      replicas: 5
 
   order-management:
     build: ./order-management
@@ -13,6 +17,10 @@ services:
       - "3001:3001"
     depends_on:
       - mongodb
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/orderdb
+    deploy:
+      replicas: 5
 
   authentication-service:
     build: ./authentication-service
@@ -21,6 +29,8 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379
       - MONGO_URL=mongodb://mongodb:27017/authdb
+    deploy:
+      replicas: 5
 
   postgresql:
     image: postgres:latest
