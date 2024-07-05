@@ -61,7 +61,7 @@ services:
     ports:
       - "9421:9421"
     environment:
-      - DATABASE_URL=postgres://ms:mstest@localhost:5432/ms_testing
+      - DATABASE_URL=postgres://spade:WSqPjMA2oLphx8ywi0@192.168.29.56:5432/spade_db
     # depends_on:
     #   - redis
     # deploy:
@@ -74,7 +74,7 @@ services:
     ports:
       - "8828:8828"
     environment:
-      - MONGO_URL=mongodb://ms:mstest@localhost:27017/?authSource=ms_testing
+      - MONGO_URL=mongodb://SpadeUser:B4zb7t4vW9xwnWMu@192.168.29.56:27017/?authSource=spadeDB
     # depends_on:
     #   - redis
     # deploy:
@@ -88,7 +88,7 @@ services:
       - "9423:9423"
     environment:
       - REDIS_URL=redis://redis:6379
-      - MONGO_URL=mongodb://ms:mstest@localhost:27017/?authSource=ms_testing
+      - MONGO_URL=mongodb://SpadeUser:B4zb7t4vW9xwnWMu@192.168.29.56:27017/?authSource=spadeDB
     # depends_on:
     #   - redis
     # deploy:

@@ -5,7 +5,7 @@ require('dotenv').config();
 const app = express();
 const port = 8828;
 
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URL, {  });
 
 const orderSchema = new mongoose.Schema({
   product: String,

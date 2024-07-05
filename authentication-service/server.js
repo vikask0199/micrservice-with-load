@@ -14,7 +14,7 @@ redisClient.on('error', (err) => {
 
 let mongoClient;
 
-MongoClient.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+MongoClient.connect(process.env.MONGO_URL, {  })
   .then(client => {
     mongoClient = client;
     console.log('Connected to MongoDB');
