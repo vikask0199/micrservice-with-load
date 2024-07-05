@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = 3001;
+const port = 8828;
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 

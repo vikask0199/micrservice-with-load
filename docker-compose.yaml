@@ -1,53 +1,117 @@
+# version: '3.8'
+# services:
+#   user-management:
+#     build: ./user-management
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - postgresql
+#     environment:
+#       - DATABASE_URL=postgres://user:password@postgresql:5432/userdb
+#     deploy:
+#       replicas: 5
+
+#   order-management:
+#     build: ./order-management
+#     ports:
+#       - "3001:3001"
+#     depends_on:
+#       - mongodb
+#     environment:
+#       - MONGO_URL=mongodb://mongodb:27017/orderdb
+#     deploy:
+#       replicas: 5
+
+#   authentication-service:
+#     build: ./authentication-service
+#     ports:
+#       - "3002:3002"
+#     environment:
+#       - REDIS_URL=redis://redis:6379
+#       - MONGO_URL=mongodb://mongodb:27017/authdb
+#     deploy:
+#       replicas: 5
+
+#   postgresql:
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_DB: userdb
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+
+#   mongodb:
+#     image: mongo:latest
+
+#   redis:
+#     image: redis:latest
+
+#   nginx:
+#     image: nginx:latest
+#     volumes:
+#       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#     ports:
+#       - "80:80"
+
+
+
 version: '3.8'
 services:
   user-management:
     build: ./user-management
     ports:
-      - "3000:3000"
-    depends_on:
-      - postgresql
+      - "9421:9421"
     environment:
-      - DATABASE_URL=postgres://user:password@postgresql:5432/userdb
-    deploy:
-      replicas: 5
+      - DATABASE_URL=postgres://ms:mstest@localhost:5432/ms_testing
+    # depends_on:
+    #   - redis
+    # deploy:
+    #   replicas: 5
+    networks:
+      - my_network
 
   order-management:
     build: ./order-management
     ports:
-      - "3001:3001"
-    depends_on:
-      - mongodb
+      - "8828:8828"
     environment:
-      - MONGO_URL=mongodb://mongodb:27017/orderdb
-    deploy:
-      replicas: 5
+      - MONGO_URL=mongodb://ms:mstest@localhost:27017/?authSource=ms_testing
+    # depends_on:
+    #   - redis
+    # deploy:
+    #   replicas: 5
+    networks:
+      - my_network
 
   authentication-service:
     build: ./authentication-service
     ports:
-      - "3002:3002"
+      - "9423:9423"
     environment:
       - REDIS_URL=redis://redis:6379
-      - MONGO_URL=mongodb://mongodb:27017/authdb
-    deploy:
-      replicas: 5
+      - MONGO_URL=mongodb://ms:mstest@localhost:27017/?authSource=ms_testing
+    # depends_on:
+    #   - redis
+    # deploy:
+    #   replicas: 5
+    networks:
+      - my_network
 
-  postgresql:
-    image: postgres:latest
-    environment:
-      POSTGRES_DB: userdb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - my_network
 
-  mongodb:
-    image: mongo:latest
+  # nginx:
+  #   image: nginx:latest
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #   ports:
+  #     - "100:100"
+  #   networks:
+  #     - my_network
 
-  redis:
-    image: redis:latest
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
+networks:
+  my_network:
+    driver: bridge

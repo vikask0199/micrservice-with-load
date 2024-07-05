@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = 9421;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL

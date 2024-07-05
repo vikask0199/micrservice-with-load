@@ -2,7 +2,7 @@ const express = require('express');
 const redis = require('redis');
 const { MongoClient } = require('mongodb');
 const app = express();
-const port = 3002;
+const port = 9423;
 
 const redisClient = redis.createClient({
   url: process.env.REDIS_URL

@@ -1,8 +1,8 @@
 # Dockerfile for Authentication Service
-FROM node:14
-WORKDIR /app
+FROM node:20.12.2
+WORKDIR /authentication-service
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 3002
+EXPOSE 9423
 CMD ["node", "server.js"]
