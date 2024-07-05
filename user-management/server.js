@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
-const port = 9421;
+const port = 8081;
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -12,14 +12,28 @@ const pool = new Pool({
 app.use(express.json());
 
 app.get('/users', async (req, res) => {
-  const result = await pool.query('SELECT * FROM users');
-  res.json(result.rows);
+  try {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error executing query', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.post('/users', async (req, res) => {
   const { name, email } = req.body;
-  const result = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *', [name, email]);
-  res.json(result.rows[0]);
+  try {
+    const result = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *', [name, email]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error inserting user', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get("/", async (req, res) => {
+  res.send(`User Management Service running on port ${port}`);
 });
 
 app.listen(port, () => {

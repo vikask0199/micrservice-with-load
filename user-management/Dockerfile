@@ -4,5 +4,5 @@ WORKDIR /user-management
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 9421
+EXPOSE 8081
 CMD ["node", "server.js"]

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = 8828;
+const port = 8082;
 
 mongoose.connect(process.env.MONGO_URL, {  });
 
@@ -26,6 +26,10 @@ app.post('/orders', async (req, res) => {
   await order.save();
   res.json(order);
 });
+
+app.get("/", async(req,res)=>{
+  res.send(`Order Management Service running on port ${port}`);
+})
 
 app.listen(port, () => {
   console.log(`Order Management Service running on port ${port}`);

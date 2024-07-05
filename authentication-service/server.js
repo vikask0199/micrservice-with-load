@@ -2,7 +2,7 @@ const express = require('express');
 const redis = require('redis');
 const { MongoClient } = require('mongodb');
 const app = express();
-const port = 9423;
+const port = 8083;
 
 const redisClient = redis.createClient({
   url: process.env.REDIS_URL
@@ -45,6 +45,10 @@ app.get('/cache', async (req, res) => {
     }
   });
 });
+
+app.get("/", async(res)=>{
+  res.send(`Authentication service running on port ${port}`);
+})
 
 app.listen(port, () => {
   console.log(`Authentication service running on port ${port}`);

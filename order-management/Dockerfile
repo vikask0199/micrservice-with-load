@@ -4,5 +4,5 @@ WORKDIR /order-management
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 8828
+EXPOSE 8082
 CMD ["node", "server.js"]
