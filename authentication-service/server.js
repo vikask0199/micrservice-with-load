@@ -46,9 +46,9 @@ app.get('/cache', async (req, res) => {
   });
 });
 
-app.get("/", async(res)=>{
+app.get("/", async (req, res) => {
   res.send(`Authentication service running on port ${port}`);
-})
+});
 
 app.listen(port, () => {
   console.log(`Authentication service running on port ${port}`);

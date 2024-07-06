@@ -9,6 +9,8 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
+console.log("pool status",pool)
+
 app.use(express.json());
 
 app.get('/users', async (req, res) => {
@@ -26,7 +28,7 @@ app.post('/users', async (req, res) => {
   try {
     const result = await pool.query('INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *', [name, email]);
     res.json(result.rows[0]);
-  } catch (err) {
+  } catch (err) { 
     console.error('Error inserting user', err);
     res.status(500).json({ error: 'Internal Server Error' });
   }
