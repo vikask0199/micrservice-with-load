@@ -47,7 +47,7 @@ const port = 8082;
 //   }
 // });
 
-app.get("/", async(req,res)=>{
+app.get("/isrunnign", async(req,res)=>{
   res.send(`Order Management Service running on port ${port}`);
 })
 

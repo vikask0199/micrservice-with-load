@@ -34,7 +34,7 @@ app.post('/users', async (req, res) => {
   }
 });
 
-app.get("/", async (req, res) => {
+app.get("/get", async (req, res) => {
   res.send(`User Management Service running on port ${port}`);
 });
 
